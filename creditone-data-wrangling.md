@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 ```
 
 # Obtain Raw Data  
-The Credit One customer data is on the MySQL sever. So in this stage I have to connect to the server, query the database for the customer data, and set it up as a Pandas dataframe, and then export the raw data as a .csv file. 
+The Credit One customer data is on the MySQL sever. So in this stage I have to connect to the server, query the database for the customer data, and set it up as a Pandas dataframe, and then export the raw data as a .csv file.
 
 ## Connect to MySQL & Query Database
 
@@ -63,21 +63,21 @@ df.head().to_markdown
     2               2     120000  female  university         2   26     -1      2   
     3               3      90000  female  university         2   34      0      0   
     4               4      50000  female  university         1   37      0      0   
-    
+
           X8     X9  ...        X15        X16        X17       X18       X19  \
     0  PAY_3  PAY_4  ...  BILL_AMT4  BILL_AMT5  BILL_AMT6  PAY_AMT1  PAY_AMT2   
     1     -1     -1  ...          0          0          0         0       689   
     2      0      0  ...       3272       3455       3261         0      1000   
     3      0      0  ...      14331      14948      15549      1518      1500   
     4      0      0  ...      28314      28959      29547      2000      2019   
-    
+
             X20       X21       X22       X23                           Y  
     0  PAY_AMT3  PAY_AMT4  PAY_AMT5  PAY_AMT6  default payment next month  
     1         0         0         0         0                     default  
     2      1000      1000         0      2000                     default  
     3      1000      1000      1000      5000                 not default  
     4      1200      1100      1069      1000                 not default  
-    
+
     [5 rows x 25 columns]>
 
 
@@ -90,8 +90,8 @@ df.info()
     <class 'pandas.core.frame.DataFrame'>
     RangeIndex: 30204 entries, 0 to 30203
     Data columns (total 25 columns):
-     #   Column           Non-Null Count  Dtype 
-    ---  ------           --------------  ----- 
+     #   Column           Non-Null Count  Dtype
+    ---  ------           --------------  -----
      0   MyUnknownColumn  30204 non-null  object
      1   X1               30204 non-null  object
      2   X2               30204 non-null  object
@@ -119,7 +119,7 @@ df.info()
      24  Y                30204 non-null  object
     dtypes: object(25)
     memory usage: 5.8+ MB
-    
+
 
 ## Export Raw Data As CSV File
 
@@ -133,12 +133,12 @@ df.to_csv (r'C:\Users\Kpiat\export_data.csv', index = False)
 
 * This data is from a paper published in Expert Systems with Applications found [here](https://bradzzz.gitbooks.io/ga-seattle-dsi/content/dsi/dsi_05_classification_databases/2.1-lesson/assets/datasets/DefaultCreditCardClients_yeh_2009.pdf)
 * A short summary of project and description of variables is in PDF in course 2 folder.
-* Dataframe Characteristics: 26 columns—23 features/independent variables, 1 dependent variable, column 0 = ID, and 30,204 rows 
+* Dataframe Characteristics: 26 columns—23 features/independent variables, 1 dependent variable, column 0 = ID, and 30,204 rows
 * Initial Cleaning Tasks:
-1. Reset column headings/names to strings in row 0 
+1. Reset column headings/names to strings in row 0
 2. Delete row 0 from the dataframe.
 3. Change dtypes for variables for object to appropriate type
-4. First 200+ rows may be duplicates, investigate furthur. 
+4. First 200+ rows may be duplicates, investigate furthur.
 
 ---
 
@@ -152,7 +152,7 @@ df = pd.read_csv('raw_credit_one_data.csv')
 
 
 ```python
-#verify imported data looks as expected 
+#verify imported data looks as expected
 df.head()
 ```
 
@@ -330,7 +330,7 @@ df.head()
 
 
 ```python
-#look at number of rows and columns in df as benchmark before making any changes 
+#look at number of rows and columns in df as benchmark before making any changes
 df.shape
 ```
 
@@ -341,11 +341,11 @@ df.shape
 
 
 
-## Change Column Headings 
+## Change Column Headings
 
 
 ```python
-#change column headings to values in index (row) 0 
+#change column headings to values in index (row) 0
 df.columns = df.iloc[0]
 ```
 
@@ -364,21 +364,21 @@ df.head().to_markdown
     2   2     120000  female  university         2   26     -1      2      0   
     3   3      90000  female  university         2   34      0      0      0   
     4   4      50000  female  university         1   37      0      0      0   
-    
+
     0  PAY_4  ...  BILL_AMT4  BILL_AMT5  BILL_AMT6  PAY_AMT1  PAY_AMT2  PAY_AMT3  \
     0  PAY_4  ...  BILL_AMT4  BILL_AMT5  BILL_AMT6  PAY_AMT1  PAY_AMT2  PAY_AMT3   
     1     -1  ...          0          0          0         0       689         0   
     2      0  ...       3272       3455       3261         0      1000      1000   
     3      0  ...      14331      14948      15549      1518      1500      1000   
     4      0  ...      28314      28959      29547      2000      2019      1200   
-    
+
     0  PAY_AMT4  PAY_AMT5  PAY_AMT6  default payment next month  
     0  PAY_AMT4  PAY_AMT5  PAY_AMT6  default payment next month  
     1         0         0         0                     default  
     2      1000         0      2000                     default  
     3      1000      1000      5000                 not default  
     4      1100      1069      1000                 not default  
-    
+
     [5 rows x 25 columns]>
 
 
@@ -583,7 +583,7 @@ df.head()
 *Notes*
 * Found how to do this on [Stack Overflow](https://stackoverflow.com/questions/26147180/convert-row-to-column-header-for-pandas-dataframe).
 * ```df.iloc[pd.RangeIndex(len(df)).drop(0)]``` is for situations where your df does not have or you don't know if it has unique index numbers for each row. If you know all index numbers are unique, you can use ```df.drop(df.index[0])```.
-* I choose non-unique method because I'm unsure what the situation is. 
+* I choose non-unique method because I'm unsure what the situation is.
 
 ***♠ Why is the 0 index missing? I thought df.drop would drop data from index 0 and replace it with values that used to be in index 1.***
 
@@ -838,7 +838,7 @@ print(duplicate_rows)
     402  199    500000  female  graduate school        1  34    -2    -2    -2   
     403  200     30000  female      high school        2  22     1     2     2   
     404  201    180000  female  graduate school        1  38    -2    -2    -2   
-    
+
     0   PAY_4  ... BILL_AMT4 BILL_AMT5 BILL_AMT6 PAY_AMT1 PAY_AMT2 PAY_AMT3  \
     204    -1  ...         0         0         0        0      689        0   
     205     0  ...      3272      3455      3261        0     1000     1000   
@@ -851,7 +851,7 @@ print(duplicate_rows)
     402    -1  ...      1251      1206      1151      138     2299     1251   
     403     0  ...     29836      1630         0     1000       85     1714   
     404    -2  ...         0         0         0        0        0        0   
-    
+
     0   PAY_AMT4 PAY_AMT5 PAY_AMT6 default payment next month  
     204        0        0        0                    default  
     205     1000        0     2000                    default  
@@ -864,9 +864,9 @@ print(duplicate_rows)
     402     1206     1151    15816                not default  
     403      104        0        0                    default  
     404        0        0        0                not default  
-    
+
     [201 rows x 25 columns]
-    
+
 
 
 ```python
@@ -922,7 +922,7 @@ print(df.isnull().sum())
     PAY_AMT6                      0
     default payment next month    0
     dtype: int64
-    
+
 
 *Notes*
 * There appears to be one one missing data point in the ID var.
@@ -1254,7 +1254,7 @@ len(df)
 
 ```python
 #only row 201 should appear b/c others were dropped above
-df.loc[201:210].to_markdown 
+df.loc[201:210].to_markdown
 ```
 
 
@@ -1262,22 +1262,22 @@ df.loc[201:210].to_markdown
 
     <bound method DataFrame.to_markdown of 0     ID LIMIT_BAL     SEX        EDUCATION MARRIAGE AGE PAY_0 PAY_2 PAY_3  \
     201  201    180000  female  graduate school        1  38    -2    -2    -2   
-    
+
     0   PAY_4  ... BILL_AMT4 BILL_AMT5 BILL_AMT6 PAY_AMT1 PAY_AMT2 PAY_AMT3  \
     201    -2  ...         0         0         0        0        0        0   
-    
+
     0   PAY_AMT4 PAY_AMT5 PAY_AMT6 default payment next month  
     201        0        0        0                not default  
-    
+
     [1 rows x 25 columns]>
 
 
 
 *Notes*
 * deleting column headings row and duplicate rows took many tries.
-    * First problem, I didn't know that dropping rows doesn't stick unless you add an inplace = True parameter to your code. 
-    * Second problem, I didn't realize that after you drop an index from the df (and stick it) that the index number dropped no longer appears in the df (e.g. if you drop index 0, when you use df.head() the first entry will be index 1). In other words, the data from below does not move up and fill the dropped indices as it would in an Excel file. 
-* After I noticed the drops weren't sticking, I tried to solve the problem by naming a new df and setting that = to the df.drop_duplicated. That was unsuccessful. 
+    * First problem, I didn't know that dropping rows doesn't stick unless you add an inplace = True parameter to your code.
+    * Second problem, I didn't realize that after you drop an index from the df (and stick it) that the index number dropped no longer appears in the df (e.g. if you drop index 0, when you use df.head() the first entry will be index 1). In other words, the data from below does not move up and fill the dropped indices as it would in an Excel file.
+* After I noticed the drops weren't sticking, I tried to solve the problem by naming a new df and setting that = to the df.drop_duplicated. That was unsuccessful.
 * Lavana advised me to add an 'inplace=True' parameter to all my drop commands. [this](https://stackabuse.com/python-with-pandas-dataframe-tutorial-with-examples/) helped me understand why that parameter is needed.
 * I found this code on a tutorial to find non-numeric data in a column ```non_numeric_limit = df.LIMIT_BAL.str.contains('[^0-9.-]') / df.loc[non_numeric_limit].head()```
 ---
@@ -1518,7 +1518,7 @@ df.LIMIT_BAL.value_counts()
     30000      1610
     80000      1567
     200000     1528
-               ... 
+               ...
     740000        2
     690000        1
     327680        1
@@ -1530,7 +1530,7 @@ df.LIMIT_BAL.value_counts()
 
 
 ```python
-non_numeric_limit = df.LIMIT_BAL.str.contains('[^0-9.-]') 
+non_numeric_limit = df.LIMIT_BAL.str.contains('[^0-9.-]')
 df.loc[non_numeric_limit].head()
 ```
 
@@ -1657,7 +1657,7 @@ df.BILL_AMT1.value_counts()
     780         76
     326         72
     316         63
-              ... 
+              ...
     216          1
     192727       1
     4434         1
@@ -1701,7 +1701,7 @@ df.PAY_AMT4.value_counts()
     2000     1214
     3000      887
     5000      810
-             ... 
+             ...
     12164       1
     17133       1
     2466        1
@@ -1887,21 +1887,21 @@ df.head().to_markdown
     3  3      90000  female  university        2   34     0      0      0      0   
     4  4      50000  female  university        1   37     0      0      0      0   
     5  5      50000    male  university        1   57    -1      0     -1      0   
-    
+
     0  ... bill_ju bill_m  bill_ap  pmt_s  pmt_ag  pmt_jy  pmt_ju  pmt_m  pmt_ap  \
     1  ...       0      0        0      0     689       0       0      0       0   
     2  ...    3272   3455     3261      0    1000    1000    1000      0    2000   
     3  ...   14331  14948    15549   1518    1500    1000    1000   1000    5000   
     4  ...   28314  28959    29547   2000    2019    1200    1100   1069    1000   
     5  ...   20940  19146    19131   2000   36681   10000    9000    689     679   
-    
+
     0      DEFAULT  
     1      default  
     2      default  
     3  not default  
     4  not default  
     5  not default  
-    
+
     [5 rows x 25 columns]>
 
 
@@ -1912,7 +1912,7 @@ df.head().to_markdown
 ```python
 #define a new fuction to move and re-order columns in a df (code lifted from toward data science post)
 def movecol(df, cols_to_move=[], ref_col='', place='After'):
-    
+
     cols = df.columns.tolist()
     if place == 'After':
         seg1 = cols[:list(cols).index(ref_col) + 1]
@@ -1920,18 +1920,18 @@ def movecol(df, cols_to_move=[], ref_col='', place='After'):
     if place == 'Before':
         seg1 = cols[:list(cols).index(ref_col)]
         seg2 = cols_to_move + [ref_col]
-    
+
     seg1 = [i for i in seg1 if i not in seg2]
     seg3 = [i for i in cols if i not in seg1 + seg2]
-    
+
     return(df[seg1 + seg2 + seg3])
 ```
 
 
 ```python
 #move LIMIT_BAL column next to other account/credit variables
-df = movecol(df, 
-             cols_to_move=['LIMIT_BAL'], 
+df = movecol(df,
+             cols_to_move=['LIMIT_BAL'],
              ref_col='AGE',
              place='After')
 df
@@ -2256,8 +2256,8 @@ df
 
 ```python
 #re-order pay columns
-df = movecol(df, 
-             cols_to_move=['pay_ap', 'pay_m', 'pay_ju', 'pay_jy', 'pay_ag', 'pay_s'], 
+df = movecol(df,
+             cols_to_move=['pay_ap', 'pay_m', 'pay_ju', 'pay_jy', 'pay_ag', 'pay_s'],
              ref_col='LIMIT_BAL',
              place='After')
 df
@@ -2582,8 +2582,8 @@ df
 
 ```python
 #re-order pmt columns
-df = movecol(df, 
-             cols_to_move=['pmt_ap', 'pmt_m', 'pmt_ju', 'pmt_jy', 'pmt_ag', 'pmt_s'], 
+df = movecol(df,
+             cols_to_move=['pmt_ap', 'pmt_m', 'pmt_ju', 'pmt_jy', 'pmt_ag', 'pmt_s'],
              ref_col='LIMIT_BAL',
              place='After')
 df
@@ -2908,8 +2908,8 @@ df
 
 ```python
 #re-order bill columns
-df = movecol(df, 
-             cols_to_move=['bill_ap', 'bill_m', 'bill_ju', 'bill_jy', 'bill_ag', 'bill_s'], 
+df = movecol(df,
+             cols_to_move=['bill_ap', 'bill_m', 'bill_ju', 'bill_jy', 'bill_ag', 'bill_s'],
              ref_col='LIMIT_BAL',
              place='After')
 
@@ -2923,11 +2923,11 @@ df.head().to_markdown
 
     <ipython-input-6-834561f03928> in <module>
           1 #re-order bill columns
-    ----> 2 df = movecol(df, 
+    ----> 2 df = movecol(df,
           3              cols_to_move=['bill_ap', 'bill_m', 'bill_ju', 'bill_jy', 'bill_ag', 'bill_s'],
           4              ref_col='LIMIT_BAL',
           5              place='After')
-    
+
 
     NameError: name 'df' is not defined
 
