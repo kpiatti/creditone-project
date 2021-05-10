@@ -1,8 +1,15 @@
 pandas
 numpy
-
 matplotlib
 seaborn
 
-jupyter
+scikit-learn
+
+jupyterlab
 ipykernel
+
+Path
+
+
+#conda-forge
+pandas-profiling
